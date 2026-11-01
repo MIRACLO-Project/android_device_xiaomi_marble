@@ -1,0 +1,45 @@
+//
+// SPDX-FileCopyrightText: MiraCLO
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Qualcomm system components taken unchanged from the stock firmware by
+// fetch-stock.sh (stock/ is not kept in git).
+
+// Qualcomm's telephony service. Among other things it is the system-side
+// client of the vendor's call audio HAL (vendor.qti.hardware.radio.am), which
+// switches the audio path for voice calls. Signed with the platform key so it
+// runs in Qualcomm's vendor_qtelephony domain.
+android_app_import {
+    name: "QtiTelephonyService",
+    apk: "stock/system_ext/app/QtiTelephonyService/QtiTelephonyService.apk",
+    certificate: "platform",
+    system_ext_specific: true,
+    uses_libs: ["qti-telephony-hidl-wrapper"],
+    dex_preopt: {
+        enabled: false,
+    },
+    required: [
+        "qti-telephony-hidl-wrapper",
+        "qti_telephony_hidl_wrapper.xml",
+    ],
+}
+
+// HIDL interface library for the call audio HAL.
+cc_prebuilt_library_shared {
+    name: "vendor.qti.hardware.radio.am@1.0",
+    system_ext_specific: true,
+    compile_multilib: "both",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["stock/system_ext/lib64/vendor.qti.hardware.radio.am@1.0.so"],
+        },
+        android_arm: {
+            srcs: ["stock/system_ext/lib/vendor.qti.hardware.radio.am@1.0.so"],
+        },
+    },
+}
