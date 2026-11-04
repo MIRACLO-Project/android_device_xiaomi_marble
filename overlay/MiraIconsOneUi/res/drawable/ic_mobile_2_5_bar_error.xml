@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: MiraCLO
+     SPDX-License-Identifier: Apache-2.0 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="19.231dp"
+    android:height="13.5dp"
+    android:viewportWidth="18.1"
+    android:viewportHeight="13.5">
+    <group>
+        <clip-path android:pathData="M0,0 H18.1 V13.5 H0 Z M10,8.5 A5,5 0 1 0 20,8.5 A5,5 0 1 0 10,8.5Z" />
+        <path
+            android:fillColor="#000"
+            android:pathData="M1.05,8.76 H1.05 A1.05,1.05 0 0 1 2.1,9.81 V10.95 A1.05,1.05 0 0 1 1.05,12 H1.05 A1.05,1.05 0 0 1 0,10.95 V9.81 A1.05,1.05 0 0 1 1.05,8.76Z" />
+        <path
+            android:fillColor="#000"
+            android:pathData="M5.683,5.84 H5.683 A1.05,1.05 0 0 1 6.733,6.89 V10.95 A1.05,1.05 0 0 1 5.683,12 H5.683 A1.05,1.05 0 0 1 4.633,10.95 V6.89 A1.05,1.05 0 0 1 5.683,5.84Z" />
+        <path
+            android:fillColor="#000"
+            android:fillAlpha="0.45"
+            android:pathData="M10.317,2.92 H10.317 A1.05,1.05 0 0 1 11.367,3.97 V10.95 A1.05,1.05 0 0 1 10.317,12 H10.317 A1.05,1.05 0 0 1 9.267,10.95 V3.97 A1.05,1.05 0 0 1 10.317,2.92Z" />
+        <path
+            android:fillColor="#000"
+            android:fillAlpha="0.45"
+            android:pathData="M14.95,0 H14.95 A1.05,1.05 0 0 1 16,1.05 V10.95 A1.05,1.05 0 0 1 14.95,12 H14.95 A1.05,1.05 0 0 1 13.9,10.95 V1.05 A1.05,1.05 0 0 1 14.95,0Z" />
+    </group>
+    <path
+        android:fillColor="#000"
+        android:pathData="M15,5 C14.59,5 14.25,5.34 14.25,5.75 L14.25,8.75 C14.25,9.16 14.59,9.5 15,9.5 C15.41,9.5 15.75,9.16 15.75,8.75 L15.75,5.75 C15.75,5.34 15.41,5 15,5Z M15,12 C15.41,12 15.75,11.66 15.75,11.25 C15.75,10.84 15.41,10.5 15,10.5 C14.59,10.5 14.25,10.84 14.25,11.25 C14.25,11.66 14.59,12 15,12Z" />
+</vector>

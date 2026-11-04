@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: MiraCLO
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Qualcomm's IMS service (VoLTE, VoNR, video calling, Wi-Fi calling) -->
+    <string name="config_ims_package" translatable="false">org.codeaurora.ims</string>
+    <string name="config_ims_mmtel_package" translatable="false">org.codeaurora.ims</string>
+    <bool name="config_dynamic_bind_ims">true</bool>
+    <bool name="config_device_volte_available">true</bool>
+    <bool name="config_device_vt_available">true</bool>
+    <bool name="config_device_wfc_ims_available">true</bool>
+
+    <!-- Camera cutout of the marble panel (centre punch hole), so the status bar,
+         clock, icons and the Dynamic Island lay out around it. -->
+    <string name="config_mainBuiltInDisplayCutout" translatable="false">M 0,0 H -28 V 94 H 28 V 0 H 0 Z</string>
+    <string name="config_mainBuiltInDisplayCutoutRectApproximation" translatable="false">M 0,0 H -28 V 94 H 28 V 0 H 0 Z</string>
+</resources>

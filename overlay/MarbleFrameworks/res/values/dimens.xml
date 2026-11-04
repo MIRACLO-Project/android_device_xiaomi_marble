@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: MiraCLO
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Status bar height matches the cutout (94 px tall), so everything centres on the camera. -->
+    <dimen name="status_bar_height_default">28dp</dimen>
+    <dimen name="status_bar_height_portrait">94px</dimen>
+    <dimen name="status_bar_height_landscape">28dp</dimen>
+    <!-- Screen corner radius of the marble panel. -->
+    <dimen name="rounded_corner_radius_top">70.0px</dimen>
+    <dimen name="rounded_corner_radius_bottom">70.0px</dimen>
+</resources>

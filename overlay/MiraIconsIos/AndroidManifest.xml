@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: MiraCLO
+     SPDX-License-Identifier: Apache-2.0
+
+     Status bar icons, iOS style: Wi-Fi and mobile signal. Picked in
+     Mira Studio > Top bar > Icons (the icon pack slot of the theme).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.miraclo.icons.ios.systemui">
+    <overlay
+        android:targetPackage="com.android.systemui"
+        android:category="android.theme.customization.icon_pack.systemui"
+        android:priority="1" />
+    <application android:label="iOS status bar icons" android:hasCode="false" />
+</manifest>

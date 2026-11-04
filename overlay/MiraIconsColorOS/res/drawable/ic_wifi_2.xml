@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: MiraCLO
+     SPDX-License-Identifier: Apache-2.0 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16.99dp"
+    android:height="12.58dp"
+    android:viewportWidth="16.2"
+    android:viewportHeight="12">
+    <path
+        android:fillColor="#000"
+        android:pathData="M8.1,12 L5.725,9.362 A3.549,3.549 0 0 1 10.475,9.362Z" />
+    <path
+        android:fillColor="#000"
+        android:pathData="M2.998,6.334 A7.625,7.625 0 0 1 13.202,6.334 L11.619,8.092 A5.258,5.258 0 0 0 4.581,8.092Z" />
+    <path
+        android:fillColor="#000"
+        android:fillAlpha="0.45"
+        android:pathData="M0.271,3.305 A11.7,11.7 0 0 1 15.929,3.305 L14.345,5.064 A9.334,9.334 0 0 0 1.855,5.064Z" />
+</vector>

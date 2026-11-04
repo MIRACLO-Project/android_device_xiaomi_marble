@@ -12,4 +12,8 @@ ifeq ($(TARGET_DEVICE),marble)
 $(call add-radio-file,stock/vendor_boot.img)
 $(call add-radio-file,stock/dtbo.img)
 
+# The stock firmware (bootloader, modem, DSP, TrustZone...), so updates carry it too.
+$(foreach f,$(wildcard $(LOCAL_PATH)/stock/firmware/*.img),\
+    $(call add-radio-file,stock/firmware/$(notdir $(f))))
+
 endif

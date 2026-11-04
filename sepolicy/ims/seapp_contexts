@@ -1,0 +1,2 @@
+# The IMS service runs in Qualcomm's telephony domain, as on stock.
+user=_app seinfo=platform name=org.codeaurora.ims isPrivApp=true domain=vendor_qtelephony type=app_data_file levelFrom=all

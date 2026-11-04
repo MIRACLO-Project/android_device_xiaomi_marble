@@ -13,11 +13,17 @@ stored here.
 
 ```
 source build/envsetup.sh
-m ota_extractor fsck.erofs
+m ota_extractor fsck.erofs aapt2 simg2img
 device/xiaomi/marble/fetch-stock.sh
+vendor/miraclo/gapps/extract-gapps.sh <Pixel factory image>   # skip for WITH_GMS=false
 lunch miraclo_marble-cp2a-userdebug
 m
 ```
+
+The vanilla build (no Google apps): `WITH_GMS=false m`.
+
+MiraCLO's recovery is built separately, after the ROM:
+`MIRACLO_RECOVERY=true m recoveryimage`.
 
 ## Stock firmware
 

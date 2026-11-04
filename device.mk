@@ -78,6 +78,20 @@ PRODUCT_PACKAGES += \
     QtiTelephonyService \
     vendor.qti.hardware.radio.am@1.0
 
+# 5G (NSA and SA) and VoLTE / VoNR: Qualcomm's system telephony apps, the IMS
+# service and the overlays that point the framework at it (see Android.bp).
+PRODUCT_PACKAGES += \
+    QtiTelephony \
+    QtiIms \
+    MarbleFrameworksOverlay \
+    MarbleTelephonyOverlay
+
+# MiraCLO status bar icon styles (ColorOS, iOS, One UI), picked in Mira Studio
+PRODUCT_PACKAGES += \
+    MiraIconsColorOS \
+    MiraIconsIos \
+    MiraIconsOneUi
+
 # Bluetooth profiles (the same set Qualcomm's QSSI turns on)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     bluetooth.profile.a2dp.source.enabled=true \
@@ -99,3 +113,30 @@ PRODUCT_PACKAGES += \
     privapp_whitelist_com.android.dialer \
     jetpack-camera-app \
     messaging
+
+# MiraCLO device fixes: NFC HAL on the NFC-less Indian model, qmipriod restart loop.
+PRODUCT_COPY_FILES += \
+    device/xiaomi/marble/init/init.marble.miraclo.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.marble.miraclo.rc
+
+# Qualcomm performance libraries from the stock firmware (build-release.sh writes this).
+-include device/xiaomi/marble/stock/perf.mk
+
+# fix6: IMS JNI libraries, the AOSP WebView, Google Clock allowlist
+PRODUCT_PACKAGES += \
+    libimsmedia_jni \
+    libimscamera_jni \
+    privapp-permissions-miraclo-gapps \
+    webview
+
+# Test builds: Android's crash protection must never offer a factory reset
+ifneq ($(TARGET_BUILD_VARIANT),user)
+PRODUCT_SYSTEM_PROPERTIES += persist.sys.disable_rescue=true
+endif
+
+# cam1: the stock HyperOS camera
+PRODUCT_PACKAGES += \
+    MiuiCamera
+
+# fx3: no NFC on the Indian model (product/etc/permissions/sku_marblein)
+PRODUCT_PACKAGES += \
+    miraclo-no-nfc-marblein

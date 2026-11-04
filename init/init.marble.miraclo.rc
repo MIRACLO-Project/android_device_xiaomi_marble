@@ -1,0 +1,28 @@
+#
+# SPDX-FileCopyrightText: MiraCLO
+# SPDX-License-Identifier: Apache-2.0
+#
+# Device fixes for the POCO F5 (marble) on MiraCLO.
+
+# The Indian model (ro.boot.hwc=IN, "marblein") has no NFC chip, but the stock vendor still
+# starts the NFC HAL, which then crash-loops forever. Stop it there; other models keep NFC.
+on property:ro.boot.hwc=IN && property:init.svc.nqnfc_2_0_hal_service=restarting
+    stop nqnfc_2_0_hal_service
+
+on property:ro.boot.hwc=IN && property:init.svc.nqnfc_2_0_hal_service=running
+    stop nqnfc_2_0_hal_service
+
+# qmipriod (a Qualcomm modem helper) is denied its own data folder by the stock vendor policy
+# outside MIUI, exits at once and is restarted every 5 seconds. It never runs here, so stop the
+# restart loop (saves wakeups and log spam; nothing that works stops working).
+on property:init.svc.vendor.qmipriod=restarting
+    stop vendor.qmipriod
+
+# The Indian model has no eSE chip either (it sits with NFC): its HAL crash-loops. Stop it there.
+on property:ro.boot.hwc=IN && property:init.svc.secureelement-hal_1_2=restarting
+    stop secureelement-hal_1_2
+
+# The stock camera may open every camera (wide, ultra-wide, macro, front).
+on post-fs-data
+    setprop vendor.camera.aux.packagelist com.android.camera
+    setprop persist.vendor.camera.privapp.list com.android.camera

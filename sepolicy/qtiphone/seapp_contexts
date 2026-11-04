@@ -1,0 +1,2 @@
+# com.qti.phone runs in Qualcomm's telephony domain, as on stock.
+user=_app seinfo=platform name=com.qti.phone domain=vendor_qtelephony type=app_data_file levelFrom=all

@@ -32,9 +32,20 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_PREBUILT_BOOTIMAGE := $(MARBLE_STOCK)/boot.img
 BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 
-# Recovery: MiraCLO's own recovery comes in a later step; until then the
-# recovery partition is left as it is.
+# Recovery: MiraCLO's own recovery (AOSP recovery: adb sideload of MiraCLO's
+# signed updates, wipe, reboot) for the recovery partition. It is built on its
+# own after the ROM (MIRACLO_RECOVERY=true m recoveryimage) so a recovery
+# problem can never break a ROM build; otherwise the partition is left as it is.
+ifeq ($(MIRACLO_RECOVERY),true)
+TARGET_NO_RECOVERY := false
+BOARD_USES_RECOVERY_AS_BOOT := false
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600
+TARGET_RECOVERY_FSTAB := device/xiaomi/marble/stock/fstab.qcom
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_RECOVERY_UI_MARGIN_HEIGHT := 100
+else
 TARGET_NO_RECOVERY := true
+endif
 
 # Stock images used as they are
 BOARD_PREBUILT_VENDORIMAGE := $(MARBLE_STOCK)/vendor.img
@@ -116,3 +127,24 @@ PRODUCT_PUBLIC_SEPOLICY_DIRS += device/qcom/sepolicy/generic/product/public
 PRODUCT_PRIVATE_SEPOLICY_DIRS += device/qcom/sepolicy/generic/product/private
 BOARD_SYSTEM_EXT_SEPOLICY_PREBUILT_DIRS := device/qcom/sepolicy/generic
 BOARD_PRODUCT_SEPOLICY_PREBUILT_DIRS := device/qcom/sepolicy/generic/product
+
+# Qualcomm telephony apps from the stock firmware (com.qti.phone, the IMS
+# service) get their stock SELinux domain, unless CLO's policy already has them.
+ifeq ($(shell grep -rqs "name=com.qti.phone" device/qcom/sepolicy && echo found),)
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += device/xiaomi/marble/sepolicy/qtiphone
+endif
+ifeq ($(shell grep -rqs "name=org.codeaurora.ims" device/qcom/sepolicy && echo found),)
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += device/xiaomi/marble/sepolicy/ims
+endif
+
+# Verified boot with MiraCLO's own key when it is on the build machine.
+ifneq ($(wildcard vendor/miraclo-keys/avb.pem),)
+BOARD_AVB_KEY_PATH := vendor/miraclo-keys/avb.pem
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := vendor/miraclo-keys/avb.pem
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA4096
+endif
+
+# The stock firmware images (device/xiaomi/marble/stock/firmware, from fetch-stock.sh) are
+# updated with the system, as on stock.
+AB_OTA_PARTITIONS += $(patsubst %.img,%,$(notdir $(wildcard $(MARBLE_STOCK)/firmware/*.img)))

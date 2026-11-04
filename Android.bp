@@ -43,3 +43,257 @@ cc_prebuilt_library_shared {
         },
     },
 }
+
+// ---------------------------------------------------------------------------
+// 5G and VoLTE: the system side of Qualcomm's telephony stack. The stock vendor
+// has the radio (IQtiRadio) and IMS (IImsRadio) services for both SIMs; these
+// are the system apps that drive them. QtiTelephony (com.qti.phone) sets the 5G
+// mode of each SIM (NSA and SA); ims (org.codeaurora.ims) is the IMS service for
+// VoLTE and VoNR. CLO has no source for them, so they come from the stock
+// firmware (fetch-stock.sh) and are re-signed with the platform key.
+
+android_app_import {
+    name: "QtiTelephony",
+    apk: "stock/system_ext/priv-app/QtiTelephony/QtiTelephony.apk",
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    enforce_uses_libs: false,
+    dex_preopt: {
+        enabled: false,
+    },
+    required: [
+        "extphonelib",
+        "extphonelib.xml",
+        "qcrilhook",
+        "qcrilhook.xml",
+        "qti-telephony-hidl-wrapper",
+        "qti_telephony_hidl_wrapper.xml",
+        "qti-telephony-utils",
+        "qti_telephony_utils.xml",
+        "telephony_system-ext_privapp-permissions-qti.xml",
+        "qti_telephony_system_packages_config.xml",
+    ],
+}
+
+android_app_import {
+    name: "QtiIms",
+    apk: "stock/system_ext/priv-app/ims/ims.apk",
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    enforce_uses_libs: false,
+    dex_preopt: {
+        enabled: false,
+    },
+    required: [
+        "ims-ext-common",
+        "ims_ext_common.xml",
+        "qti-telephony-hidl-wrapper",
+        "qti_telephony_hidl_wrapper.xml",
+        "qti-telephony-utils",
+        "qti_telephony_utils.xml",
+        "telephony_system-ext_privapp-permissions-qti.xml",
+    ],
+}
+
+// com.qualcomm.qcrilhook, needed by QtiTelephony.
+dex_import {
+    name: "qcrilhook",
+    jars: ["stock/system_ext/framework/qcrilhook.jar"],
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "qcrilhook.xml",
+    src: "stock/system_ext/etc/permissions/qcrilhook.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "telephony_system-ext_privapp-permissions-qti.xml",
+    src: "stock/system_ext/etc/permissions/telephony_system-ext_privapp-permissions-qti.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "qti_telephony_system_packages_config.xml",
+    src: "stock/system_ext/etc/sysconfig/qti_telephony_system_packages_config.xml",
+    sub_dir: "sysconfig",
+    system_ext_specific: true,
+}
+
+// Tells the framework and the phone app that org.codeaurora.ims is the IMS
+// service, and that this device supports VoLTE, video calling and Wi-Fi calling
+// (each carrier still decides through its carrier config).
+runtime_resource_overlay {
+    name: "MarbleFrameworksOverlay",
+    resource_dirs: ["overlay/MarbleFrameworks/res"],
+    manifest: "overlay/MarbleFrameworks/AndroidManifest.xml",
+    product_specific: true,
+    sdk_version: "current",
+}
+
+// MiraCLO status bar icon styles (Wi-Fi and mobile signal), picked in Mira Studio > Top bar >
+// Icons. They fill the theme's SystemUI icon pack slot, so only one is on at a time.
+runtime_resource_overlay {
+    name: "MiraIconsColorOS",
+    resource_dirs: ["overlay/MiraIconsColorOS/res"],
+    manifest: "overlay/MiraIconsColorOS/AndroidManifest.xml",
+    product_specific: true,
+    sdk_version: "current",
+}
+
+runtime_resource_overlay {
+    name: "MiraIconsIos",
+    resource_dirs: ["overlay/MiraIconsIos/res"],
+    manifest: "overlay/MiraIconsIos/AndroidManifest.xml",
+    product_specific: true,
+    sdk_version: "current",
+}
+
+runtime_resource_overlay {
+    name: "MiraIconsOneUi",
+    resource_dirs: ["overlay/MiraIconsOneUi/res"],
+    manifest: "overlay/MiraIconsOneUi/AndroidManifest.xml",
+    product_specific: true,
+    sdk_version: "current",
+}
+
+runtime_resource_overlay {
+    name: "MarbleTelephonyOverlay",
+    resource_dirs: ["overlay/MarbleTelephony/res"],
+    manifest: "overlay/MarbleTelephony/AndroidManifest.xml",
+    product_specific: true,
+    sdk_version: "current",
+}
+
+// The stock IMS app (QtiIms) loads these two JNI libraries from /system_ext/lib64;
+// without them it crashes at start and VoLTE never registers.
+cc_prebuilt_library_shared {
+    name: "libimsmedia_jni",
+    srcs: ["stock/system_ext/lib64/libimsmedia_jni.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+// The stock IMS app (QtiIms) loads these two JNI libraries from /system_ext/lib64;
+// without them it crashes at start and VoLTE never registers.
+cc_prebuilt_library_shared {
+    name: "libimscamera_jni",
+    srcs: ["stock/system_ext/lib64/libimscamera_jni.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+// The stock HyperOS camera (MiuiCamera), taken from the stock firmware by fetch-stock.sh (stock/
+// is not kept in git) and re-signed with the platform key. Its few MIUI framework calls are
+// answered by stand-ins in frameworks/base (core/java/miui).
+android_app_import {
+    name: "MiuiCamera",
+    apk: "stock/product/priv-app/MiuiCamera/MiuiCamera.apk",
+    certificate: "platform",
+    privileged: true,
+    // system_ext: only apps there share the system's library space, which its engine needs
+    system_ext_specific: true,
+    enforce_uses_libs: false,
+    dex_preopt: {
+        enabled: false,
+    },
+    required: [
+        "privapp-permissions-miuicamera.xml",
+        "miuicam_libcamera_algoup_jni_xiaomi",
+        "miuicam_libcamera_mianode_jni_xiaomi",
+        "miuicam_libcameraopt",
+        "miuicam_libcrop",
+        "miuicam_libbacktrace",
+    ],
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-miuicamera.xml",
+    src: "configs/privapp-permissions-miuicamera.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}
+
+// The Xiaomi libraries the stock camera loads from system_ext (its algorithm engine and helpers).
+
+cc_prebuilt_library_shared {
+    name: "miuicam_libcamera_algoup_jni_xiaomi",
+    stem: "libcamera_algoup_jni.xiaomi",
+    srcs: ["stock/system_ext/lib64/libcamera_algoup_jni.xiaomi.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "miuicam_libcamera_mianode_jni_xiaomi",
+    stem: "libcamera_mianode_jni.xiaomi",
+    srcs: ["stock/system_ext/lib64/libcamera_mianode_jni.xiaomi.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "miuicam_libcameraopt",
+    stem: "libcameraopt",
+    srcs: ["stock/system_ext/lib64/libcameraopt.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "miuicam_libcrop",
+    stem: "libcrop",
+    srcs: ["stock/system_ext/lib64/libcrop.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "miuicam_libbacktrace",
+    stem: "libbacktrace",
+    srcs: ["stock/system_ext/lib64/libbacktrace.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+// The Indian model (sku marblein) has no NFC chip: NFC is marked unavailable there only.
+prebuilt_etc {
+    name: "miraclo-no-nfc-marblein",
+    src: "configs/sku_marblein/miraclo-no-nfc.xml",
+    filename: "miraclo-no-nfc.xml",
+    sub_dir: "permissions/sku_marblein",
+    product_specific: true,
+}

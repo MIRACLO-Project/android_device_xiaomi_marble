@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: MiraCLO
+     SPDX-License-Identifier: Apache-2.0
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.miraclo.overlay.marble.frameworks">
+    <overlay
+        android:targetPackage="android"
+        android:isStatic="true"
+        android:priority="10" />
+</manifest>
