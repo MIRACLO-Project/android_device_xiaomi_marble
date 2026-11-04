@@ -1,8 +1,8 @@
 #
-# SPDX-FileCopyrightText: MiraCLO
+# SPDX-FileCopyrightText: MIRACLO
 # SPDX-License-Identifier: Apache-2.0
 #
-# Device fixes for the POCO F5 (marble) on MiraCLO.
+# Device fixes for the POCO F5 (marble) on MIRACLO.
 
 # The Indian model (ro.boot.hwc=IN, "marblein") has no NFC chip, but the stock vendor still
 # starts the NFC HAL, which then crash-loops forever. Stop it there; other models keep NFC.

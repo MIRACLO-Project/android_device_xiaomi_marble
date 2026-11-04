@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: MiraCLO
+# SPDX-FileCopyrightText: MIRACLO
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -32,7 +32,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_PREBUILT_BOOTIMAGE := $(MARBLE_STOCK)/boot.img
 BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 
-# Recovery: MiraCLO's own recovery (AOSP recovery: adb sideload of MiraCLO's
+# Recovery: MIRACLO's own recovery (AOSP recovery: adb sideload of MIRACLO's
 # signed updates, wipe, reboot) for the recovery partition. It is built on its
 # own after the ROM (MIRACLO_RECOVERY=true m recoveryimage) so a recovery
 # problem can never break a ROM build; otherwise the partition is left as it is.
@@ -62,7 +62,7 @@ BOARD_USES_VENDORIMAGE := true
 BOARD_USES_ODMIMAGE := true
 BOARD_USES_VENDOR_DLKMIMAGE := true
 
-# MiraCLO's own partitions
+# MIRACLO's own partitions
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
@@ -94,7 +94,7 @@ AB_OTA_PARTITIONS := \
     vendor_dlkm
 
 # Verified boot: vbmeta covers boot, dtbo, vendor_boot and the stock vendor
-# images; vbmeta_system covers MiraCLO's system partitions (the stock fstab
+# images; vbmeta_system covers MIRACLO's system partitions (the stock fstab
 # mounts them with avb=vbmeta_system). The stock images keep Xiaomi's and
 # Google's signatures, so verification is turned off in vbmeta (flags 3); the
 # device runs with an unlocked bootloader.
@@ -137,7 +137,7 @@ ifeq ($(shell grep -rqs "name=org.codeaurora.ims" device/qcom/sepolicy && echo f
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += device/xiaomi/marble/sepolicy/ims
 endif
 
-# Verified boot with MiraCLO's own key when it is on the build machine.
+# Verified boot with MIRACLO's own key when it is on the build machine.
 ifneq ($(wildcard vendor/miraclo-keys/avb.pem),)
 BOARD_AVB_KEY_PATH := vendor/miraclo-keys/avb.pem
 BOARD_AVB_ALGORITHM := SHA256_RSA4096

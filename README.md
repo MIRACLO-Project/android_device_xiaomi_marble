@@ -1,9 +1,14 @@
-# MiraCLO for the POCO F5 (marble)
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MIRACLO-Project/MIRACLO/main/assets/header_light.png">
+  <img alt="MIRACLO: Pure Android 17. Expressive where it counts." src="https://raw.githubusercontent.com/MIRACLO-Project/MIRACLO/main/assets/header_dark.png">
+</picture>
+
+# MIRACLO for the POCO F5 (marble)
 
 Device configuration for the POCO F5 / Redmi Note 12 Turbo (marble),
 Qualcomm SM7475.
 
-MiraCLO builds system, system_ext and product. The phone keeps Xiaomi's stock
+MIRACLO builds system, system_ext and product. The phone keeps Xiaomi's stock
 vendor, odm, vendor_dlkm, vendor_boot and dtbo images, Google's GKI boot image
 and a few Qualcomm system components (see `Android.bp`) from the same
 firmware. They are downloaded from Xiaomi by `fetch-stock.sh` and are not
@@ -22,7 +27,7 @@ m
 
 The vanilla build (no Google apps): `WITH_GMS=false m`.
 
-MiraCLO's recovery is built separately, after the ROM:
+MIRACLO's recovery is built separately, after the ROM:
 `MIRACLO_RECOVERY=true m recoveryimage`.
 
 ## Stock firmware

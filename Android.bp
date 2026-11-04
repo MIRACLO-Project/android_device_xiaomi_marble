@@ -1,5 +1,5 @@
 //
-// SPDX-FileCopyrightText: MiraCLO
+// SPDX-FileCopyrightText: MIRACLO
 // SPDX-License-Identifier: Apache-2.0
 //
 
@@ -136,7 +136,7 @@ runtime_resource_overlay {
     sdk_version: "current",
 }
 
-// MiraCLO status bar icon styles (Wi-Fi and mobile signal), picked in Mira Studio > Top bar >
+// MIRACLO status bar icon styles (Wi-Fi and mobile signal), picked in Mira Studio > Top bar >
 // Icons. They fill the theme's SystemUI icon pack slot, so only one is on at a time.
 runtime_resource_overlay {
     name: "MiraIconsColorOS",

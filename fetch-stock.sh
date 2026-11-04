@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# SPDX-FileCopyrightText: MiraCLO
+# SPDX-FileCopyrightText: MIRACLO
 # SPDX-License-Identifier: Apache-2.0
 #
 # Downloads Xiaomi's official HyperOS update for the POCO F5 and extracts what
-# MiraCLO runs unchanged: the vendor, odm, vendor_dlkm, vendor_boot and dtbo
+# MIRACLO runs unchanged: the vendor, odm, vendor_dlkm, vendor_boot and dtbo
 # images, Google's GKI boot image (and its kernel), and the Qualcomm system
 # components listed in Android.bp. Xiaomi's files are never stored in git.
 #
@@ -65,7 +65,7 @@ SYSTEM_EXT_OPTIONAL="
     framework/UxPerformance.jar
 "
 
-# Partitions MiraCLO builds itself, or that are not firmware; everything else in the stock
+# Partitions MIRACLO builds itself, or that are not firmware; everything else in the stock
 # update is firmware (bootloader, modem, DSP, TrustZone...) and ships in the release.
 NOT_FIRMWARE="system system_ext product odm vendor vendor_dlkm system_dlkm mi_ext vbmeta vbmeta_system boot vendor_boot dtbo init_boot recovery"
 

@@ -1,9 +1,9 @@
 #
-# SPDX-FileCopyrightText: MiraCLO
+# SPDX-FileCopyrightText: MIRACLO
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# MiraCLO for the POCO F5 (marble)
+# MIRACLO for the POCO F5 (marble)
 
 MIRACLO_BUILD := marble
 

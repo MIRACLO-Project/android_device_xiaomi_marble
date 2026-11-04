@@ -1,11 +1,11 @@
 #
-# SPDX-FileCopyrightText: MiraCLO
+# SPDX-FileCopyrightText: MIRACLO
 # SPDX-License-Identifier: Apache-2.0
 #
 
 # POCO F5 (marble), Qualcomm SM7475 (taro family)
 #
-# MiraCLO builds system, system_ext and product. The device runs Xiaomi's
+# MIRACLO builds system, system_ext and product. The device runs Xiaomi's
 # stock vendor, odm, vendor_dlkm, vendor_boot and dtbo images and Google's GKI
 # boot image unchanged; fetch-stock.sh downloads them from Xiaomi before the
 # first build, together with the Qualcomm system apps listed in Android.bp.
@@ -86,7 +86,7 @@ PRODUCT_PACKAGES += \
     MarbleFrameworksOverlay \
     MarbleTelephonyOverlay
 
-# MiraCLO status bar icon styles (ColorOS, iOS, One UI), picked in Mira Studio
+# MIRACLO status bar icon styles (ColorOS, iOS, One UI), picked in Mira Studio
 PRODUCT_PACKAGES += \
     MiraIconsColorOS \
     MiraIconsIos \
@@ -114,7 +114,7 @@ PRODUCT_PACKAGES += \
     jetpack-camera-app \
     messaging
 
-# MiraCLO device fixes: NFC HAL on the NFC-less Indian model, qmipriod restart loop.
+# MIRACLO device fixes: NFC HAL on the NFC-less Indian model, qmipriod restart loop.
 PRODUCT_COPY_FILES += \
     device/xiaomi/marble/init/init.marble.miraclo.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.marble.miraclo.rc
 
