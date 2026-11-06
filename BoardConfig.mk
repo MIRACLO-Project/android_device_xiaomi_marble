@@ -29,23 +29,28 @@ TARGET_NO_BOOTLOADER := true
 # kernel with Google's generic ramdisk), header v4, no init_boot.
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_KERNEL_PAGESIZE := 4096
+
+# The open-source apps' native libraries are copied beside each app (vendor/miraclo/apps/jni.mk).
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+# The aurora kernel once it has passed its test on the phone: use-aurora.sh puts its boot image
+# in aurora/. Until then, the stock boot image.
+ifneq ($(wildcard $(DEVICE_PATH)/aurora/boot.img),)
+BOARD_PREBUILT_BOOTIMAGE := $(DEVICE_PATH)/aurora/boot.img
+else
 BOARD_PREBUILT_BOOTIMAGE := $(MARBLE_STOCK)/boot.img
+endif
 BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 
-# Recovery: MIRACLO's own recovery (AOSP recovery: adb sideload of MIRACLO's
-# signed updates, wipe, reboot) for the recovery partition. It is built on its
-# own after the ROM (MIRACLO_RECOVERY=true m recoveryimage) so a recovery
-# problem can never break a ROM build; otherwise the partition is left as it is.
-ifeq ($(MIRACLO_RECOVERY),true)
+# Recovery: Android's recovery from this tree (adb sideload of MIRACLO's signed updates, factory
+# reset, reboot), built with the ROM for the recovery partition. Like Xiaomi's recovery.img it is
+# a header v4 image with no kernel: the phone starts it with the boot partition's kernel.
 TARGET_NO_RECOVERY := false
 BOARD_USES_RECOVERY_AS_BOOT := false
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600
 TARGET_RECOVERY_FSTAB := device/xiaomi/marble/stock/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 100
-else
-TARGET_NO_RECOVERY := true
-endif
 
 # Stock images used as they are
 BOARD_PREBUILT_VENDORIMAGE := $(MARBLE_STOCK)/vendor.img

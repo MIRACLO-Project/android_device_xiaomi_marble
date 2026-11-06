@@ -86,12 +86,6 @@ PRODUCT_PACKAGES += \
     MarbleFrameworksOverlay \
     MarbleTelephonyOverlay
 
-# MIRACLO status bar icon styles (ColorOS, iOS, One UI), picked in Mira Studio
-PRODUCT_PACKAGES += \
-    MiraIconsColorOS \
-    MiraIconsIos \
-    MiraIconsOneUi
-
 # Bluetooth profiles (the same set Qualcomm's QSSI turns on)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     bluetooth.profile.a2dp.source.enabled=true \
@@ -121,6 +115,39 @@ PRODUCT_COPY_FILES += \
 # Qualcomm performance libraries from the stock firmware (build-release.sh writes this).
 -include device/xiaomi/marble/stock/perf.mk
 
+# Mira performance: Android's boost framework talks to Qualcomm's perf service again
+# (touch, scroll, app launch and animation boosts). setup-perf-libs.sh writes miraperf.mk.
+-include device/xiaomi/marble/stock/miraperf/miraperf.mk
+PRODUCT_PACKAGES += libmiraperf_jni
+# Memory for 8 and 12 GB phones, and the system UI compiled ahead of time for speed.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
+PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI Launcher3QuickStep Settings
+
+# Mira smoothness: the tuning file, and frame pacing, memory and app compiling the way phone
+# makers set them (our own values).
+PRODUCT_COPY_FILES += \
+    vendor/miraclo/perf/init.miraclo.perf.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.miraclo.perf.rc
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    debug.sf.enable_adpf_cpu_hint=true \
+    debug.hwui.use_hint_manager=true \
+    debug.sf.frame_rate_multiple_threshold=120 \
+    ro.lmk.use_minfree_levels=false \
+    ro.lmk.psi_partial_stall_ms=70 \
+    ro.lmk.psi_complete_stall_ms=700 \
+    ro.lmk.thrashing_limit=30 \
+    ro.lmk.thrashing_limit_decay=50 \
+    ro.lmk.swap_util_max=90 \
+    ro.lmk.kill_heaviest_task=true \
+    dalvik.vm.boot-dex2oat-threads=8 \
+    dalvik.vm.dex2oat-threads=6 \
+    dalvik.vm.image-dex2oat-threads=8 \
+    dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5,6,7 \
+    dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7 \
+    pm.dexopt.first-boot=verify \
+    pm.dexopt.boot-after-ota=verify \
+    pm.dexopt.bg-dexopt=speed-profile \
+    persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false
+
 # fix6: IMS JNI libraries, the AOSP WebView, Google Clock allowlist
 PRODUCT_PACKAGES += \
     libimsmedia_jni \
@@ -136,6 +163,9 @@ endif
 # cam1: the stock HyperOS camera
 PRODUCT_PACKAGES += \
     MiuiCamera
+# Lets the camera app load its engine libraries from system_ext.
+PRODUCT_COPY_FILES += \
+    device/xiaomi/marble/configs/public.libraries-xiaomi.txt:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/public.libraries-xiaomi.txt
 
 # fx3: no NFC on the Indian model (product/etc/permissions/sku_marblein)
 PRODUCT_PACKAGES += \
