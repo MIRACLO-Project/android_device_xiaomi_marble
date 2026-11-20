@@ -169,14 +169,9 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.surface_flinger.enable_frame_rate_override=true \
     ro.surface_flinger.set_touch_timer_ms=200 \
     ro.surface_flinger.set_idle_timer_ms=1500 \
-    ro.surface_flinger.set_display_power_timer_ms=1000 \
-    debug.sf.use_phase_offsets_as_durations=1 \
-    debug.sf.late.sf.duration=10500000 \
-    debug.sf.late.app.duration=16600000 \
-    debug.sf.early.sf.duration=16600000 \
-    debug.sf.early.app.duration=16600000 \
-    debug.sf.earlyGl.sf.duration=13500000 \
-    debug.sf.earlyGl.app.duration=15000000
+    ro.surface_flinger.set_display_power_timer_ms=1000
+# Frame timing stays with the stock vendor's phase offsets: SurfaceFlinger refuses to start
+# when durations are switched on while the vendor sets phase offsets.
 
 # fix6: IMS JNI libraries, the AOSP WebView, Google Clock allowlist
 PRODUCT_PACKAGES += \
