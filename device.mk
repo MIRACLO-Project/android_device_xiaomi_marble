@@ -146,7 +146,32 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     pm.dexopt.first-boot=verify \
     pm.dexopt.boot-after-ota=verify \
     pm.dexopt.bg-dexopt=speed-profile \
-    persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false
+    persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false \
+    pm.dexopt.install=speed-profile \
+    pm.dexopt.install-fast=skip \
+    pm.dexopt.post-boot=verify \
+    dalvik.vm.dex2oat64.enabled=true
+
+# Vulkan rendering on the Adreno 730: apps (HWUI) and SurfaceFlinger's RenderEngine.
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.hwui.use_vulkan=true \
+    debug.hwui.renderer=skiavk \
+    debug.renderengine.backend=skiavkthreaded
+
+# 120 Hz: content-based rate selection, a quick return to 120 Hz on touch and a short idle drop.
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.surface_flinger.use_content_detection_for_refresh_rate=true \
+    ro.surface_flinger.enable_frame_rate_override=true \
+    ro.surface_flinger.set_touch_timer_ms=200 \
+    ro.surface_flinger.set_idle_timer_ms=1500 \
+    ro.surface_flinger.set_display_power_timer_ms=1000 \
+    debug.sf.use_phase_offsets_as_durations=1 \
+    debug.sf.late.sf.duration=10500000 \
+    debug.sf.late.app.duration=16600000 \
+    debug.sf.early.sf.duration=16600000 \
+    debug.sf.early.app.duration=16600000 \
+    debug.sf.earlyGl.sf.duration=13500000 \
+    debug.sf.earlyGl.app.duration=15000000
 
 # fix6: IMS JNI libraries, the AOSP WebView, Google Clock allowlist
 PRODUCT_PACKAGES += \
