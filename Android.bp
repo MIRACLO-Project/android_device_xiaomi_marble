@@ -274,3 +274,12 @@ prebuilt_etc {
     sub_dir: "permissions/sku_marblein",
     product_specific: true,
 }
+
+// Hotspot: WPA3 (SAE), Wi-Fi 6, 5 GHz and automatic channel selection.
+runtime_resource_overlay {
+    name: "MarbleWifiOverlay",
+    resource_dirs: ["overlay/MarbleWifi/res"],
+    manifest: "overlay/MarbleWifi/AndroidManifest.xml",
+    product_specific: true,
+    sdk_version: "current",
+}

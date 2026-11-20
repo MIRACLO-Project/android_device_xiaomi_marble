@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: MIRACLO
+     SPDX-License-Identifier: Apache-2.0
+
+     Hotspot on the POCO F5 (WCN6750, Wi-Fi 6): WPA3 (SAE), Wi-Fi 6, 5 GHz and automatic channel
+     selection, as the stock firmware offers.
+-->
+<resources>
+    <bool name="config_wifi_softap_sae_supported">true</bool>
+    <bool name="config_wifiSoftapIeee80211axSupported">true</bool>
+    <bool name="config_wifiSoftap5ghzSupported">true</bool>
+    <bool name="config_wifi_softap_acs_supported">true</bool>
+</resources>

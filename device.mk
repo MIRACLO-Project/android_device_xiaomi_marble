@@ -84,7 +84,8 @@ PRODUCT_PACKAGES += \
     QtiTelephony \
     QtiIms \
     MarbleFrameworksOverlay \
-    MarbleTelephonyOverlay
+    MarbleTelephonyOverlay \
+    MarbleWifiOverlay
 
 # Bluetooth profiles (the same set Qualcomm's QSSI turns on)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
