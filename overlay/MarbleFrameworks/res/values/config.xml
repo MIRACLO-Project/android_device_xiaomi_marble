@@ -16,4 +16,9 @@
          clock, icons and the Dynamic Island lay out around it. -->
     <string name="config_mainBuiltInDisplayCutout" translatable="false">M 0,0 H -28 V 94 H 28 V 0 H 0 Z</string>
     <string name="config_mainBuiltInDisplayCutoutRectApproximation" translatable="false">M 0,0 H -28 V 94 H 28 V 0 H 0 Z</string>
+
+    <!-- MIRACLO: iPhone-like haptics. Crisp ticks for typing, scrolling pickers and selection,
+         firm clicks for buttons and switches, a heavy click for long press (see
+         configs/miraclo_haptics.xml). -->
+    <string name="config_hapticFeedbackCustomizationFile" translatable="false">/system_ext/etc/miraclo_haptics.xml</string>
 </resources>

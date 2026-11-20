@@ -152,6 +152,10 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     pm.dexopt.post-boot=verify \
     dalvik.vm.dex2oat64.enabled=true
 
+# iPhone-like haptics (frameworks overlay: config_hapticFeedbackCustomizationFile).
+PRODUCT_COPY_FILES += \
+    device/xiaomi/marble/configs/miraclo_haptics.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/miraclo_haptics.xml
+
 # Vulkan rendering on the Adreno 730: apps (HWUI) and SurfaceFlinger's RenderEngine.
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.hwui.use_vulkan=true \

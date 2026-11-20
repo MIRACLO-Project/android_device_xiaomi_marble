@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: MIRACLO
+     SPDX-License-Identifier: Apache-2.0
+
+     iPhone-like haptics for the POCO F5's X-axis motor: short, crisp predefined effects (played by
+     the vibrator HAL) for every system haptic. Keys are android.view.HapticFeedbackConstants.
+-->
+<haptic-feedback-constants>
+    <!-- LONG_PRESS -->
+    <constant id="0"><vibration-effect><predefined-effect name="heavy_click"/></vibration-effect></constant>
+    <!-- VIRTUAL_KEY -->
+    <constant id="1"><vibration-effect><predefined-effect name="click"/></vibration-effect></constant>
+    <!-- KEYBOARD_TAP -->
+    <constant id="3"><vibration-effect><predefined-effect name="tick"/></vibration-effect></constant>
+    <!-- CLOCK_TICK: pickers, sliders, list snaps -->
+    <constant id="4"><vibration-effect><predefined-effect name="tick"/></vibration-effect></constant>
+    <!-- CONTEXT_CLICK -->
+    <constant id="6"><vibration-effect><predefined-effect name="tick"/></vibration-effect></constant>
+    <!-- KEYBOARD_RELEASE, VIRTUAL_KEY_RELEASE: nothing, as on iOS -->
+    <!-- TEXT_HANDLE_MOVE -->
+    <constant id="9"><vibration-effect><predefined-effect name="texture_tick"/></vibration-effect></constant>
+    <!-- GESTURE_START, GESTURE_END -->
+    <constant id="12"><vibration-effect><predefined-effect name="tick"/></vibration-effect></constant>
+    <constant id="13"><vibration-effect><predefined-effect name="click"/></vibration-effect></constant>
+    <!-- CONFIRM, REJECT -->
+    <constant id="16"><vibration-effect><predefined-effect name="click"/></vibration-effect></constant>
+    <constant id="17"><vibration-effect><predefined-effect name="double_click"/></vibration-effect></constant>
+    <!-- TOGGLE_ON, TOGGLE_OFF -->
+    <constant id="21"><vibration-effect><predefined-effect name="click"/></vibration-effect></constant>
+    <constant id="22"><vibration-effect><predefined-effect name="tick"/></vibration-effect></constant>
+    <!-- DRAG_START -->
+    <constant id="25"><vibration-effect><predefined-effect name="click"/></vibration-effect></constant>
+    <!-- SEGMENT_TICK, SEGMENT_FREQUENT_TICK -->
+    <constant id="26"><vibration-effect><predefined-effect name="tick"/></vibration-effect></constant>
+    <constant id="27"><vibration-effect><predefined-effect name="texture_tick"/></vibration-effect></constant>
+</haptic-feedback-constants>
